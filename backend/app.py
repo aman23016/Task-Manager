@@ -28,11 +28,11 @@ def create_task():
     if not request.json or 'title' not in request.json:
         abort(400)
     
-    tasks = load_tasks()
+    tasks = load_tasks().get('tasks', {})
     data = request.get_json()
     if not data:
         abort(400, 'Invalid JSON')
-    new_id = str(max(int(k) for k in tasks['tasks'].keys()) + 1) if data['tasks'] else '1'
+    new_id = str(max(int(k) for k in tasks.keys()) + 1) if data['tasks'] else '1'
     
     new_task = {
         'id': int(new_id),
@@ -41,15 +41,15 @@ def create_task():
         'status': data.get('status', 'To Do')
     }
     
-    tasks['tasks'][new_id] = new_task
+    tasks[new_id] = new_task
     save_tasks(tasks)
     return jsonify(new_task), 201
 
 @app.route('/tasks/id=<int:task_id>', methods=['PUT'])
 def update_task(task_id):
-    tasks = load_tasks()
+    tasks = load_tasks().get('tasks', {})
     data = request.get_json()
-    task = tasks['tasks'].get(str(task_id))
+    task = tasks[str(task_id)]
     if not task:
         abort(404)
     
@@ -60,7 +60,7 @@ def update_task(task_id):
         'status': data.get('status', task['status'])
     }
     
-    tasks['tasks'][str(task_id)] = updated_task
+    tasks[str(task_id)] = updated_task
     save_tasks(tasks)
     return jsonify(updated_task)
 
