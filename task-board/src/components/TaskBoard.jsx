@@ -17,7 +17,7 @@ const TaskBoard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch('${API_URL}/tasks');
+        const response = await fetch(`${API_URL}/tasks`);
         if (!response.ok) throw new Error('Failed to fetch tasks');
         const tasks = await response.json();
         setTasks(tasks);
@@ -31,7 +31,7 @@ const TaskBoard = () => {
   // Create new task with selected status
   const handleCreate = async (newTask) => {
     try {
-      const response = await fetch('${API_URL}/tasks', {
+      const response = await fetch(`${API_URL}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...newTask, status: selectedStatus })
