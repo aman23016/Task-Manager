@@ -37,7 +37,62 @@ This project consists of a **React frontend** and a **Flask backend**, deployed 
 - **PUT /tasks/:id**: Update an existing task
 - **DELETE /tasks/:id**: Delete a task
 
+## Setup
+
+### Frontend Setup
+
+- Clone the frontend repo and navigate to its directory:
+  ```bash
+  git clone https://github.com/aman23016/Task-Manager.git
+  cd task-board/
+  ```
+
+- Install the required libraries:
+  ```bash
+  npm install
+  ```
+
+- Install Pragmatic-drag-and-drop
+  ```bash
+  npm install @atlaskit/pragmatic-drag-and-drop @atlaskit/pragmatic-drag-and-drop-hitbox tiny-invariant
+  ```
+
+- Install tailwindcss v4.1
+  ```bash
+  npm install tailwindcss @tailwindcss/vite 
+  ```
+
+- Start the frontend server:
+  ```bash
+  npm run dev
+  ```
+
+### Backend Setup:
+
+- After cloning the github, create and activate a Python environment:
+  ```bash
+  python -m venv venv
+  source venv/bin/activate     # macOS/Linux
+  venv\Scripts\activate        # Windows
+  ```
+
+- Install dependencies:
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+- Run the flask server:
+  ```bash
+  python app.py             #Windows
+  or
+  python3 app.py            #macOS
+  ```
+
 ## AI Usage
 
 - Deepseek was used for building this application
 - Follow the links mentioned in the files added.
+
+## Deployment Link
+
+- Application Deployed at: https://task-manager-frontend-peach-nine.vercel.app
