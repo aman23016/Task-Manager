@@ -36,13 +36,13 @@ def create_task():
     
     new_task = {
         'id': int(new_id),
-        'title': request.json['title'],
-        'description': request.json.get('description', ''),
-        'status': request.json.get('status', 'To Do')
+        'title': data['title'],
+        'description': data.get('description', ''),
+        'status': data.get('status', 'To Do')
     }
     
     tasks['tasks'][new_id] = new_task
-    save_tasks(data)
+    save_tasks(tasks)
     return jsonify(new_task), 201
 
 @app.route('/tasks/id=<int:task_id>', methods=['PUT'])
@@ -55,23 +55,23 @@ def update_task(task_id):
     
     updated_task = {
         'id': task_id,
-        'title': request.json.get('title', task['title']),
-        'description': request.json.get('description', task['description']),
-        'status': request.json.get('status', task['status'])
+        'title': data.get('title', task['title']),
+        'description': data.get('description', task['description']),
+        'status': data.get('status', task['status'])
     }
     
     tasks['tasks'][str(task_id)] = updated_task
-    save_tasks(data)
+    save_tasks(tasks)
     return jsonify(updated_task)
 
 @app.route('/tasks/id=<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    data = load_tasks()
-    if str(task_id) not in data['tasks']:
+    tasks = load_tasks()
+    if str(task_id) not in tasks['tasks']:
         abort(404)
     
-    del data['tasks'][str(task_id)]
-    save_tasks(data)
+    del tasks['tasks'][str(task_id)]
+    save_tasks(tasks)
     return jsonify({'success': True})
 
 if __name__ == '__main__':
