@@ -42,7 +42,7 @@ def create_task():
     save_tasks(data)
     return jsonify(new_task), 201
 
-@app.route('/tasks/<int:task_id>', methods=['PUT'])
+@app.route('/tasks/id=<int:task_id>', methods=['PUT'])
 def update_task(task_id):
     data = load_tasks()
     task = data['tasks'].get(str(task_id))
@@ -60,7 +60,7 @@ def update_task(task_id):
     save_tasks(data)
     return jsonify(updated_task)
 
-@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+@app.route('/tasks/id=<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     data = load_tasks()
     if str(task_id) not in data['tasks']:

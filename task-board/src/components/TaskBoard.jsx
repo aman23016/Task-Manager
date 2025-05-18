@@ -48,7 +48,7 @@ const TaskBoard = () => {
   // Update existing task
   const handleUpdate = async (updatedTask) => {
     try {
-      const response = await fetch(`${API_URL}/tasks/${updatedTask.id}`, {
+      const response = await fetch(`${API_URL}/tasks/id=${updatedTask.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedTask)
@@ -66,7 +66,7 @@ const TaskBoard = () => {
   // Delete task
   const handleDelete = async () => {
     try {
-      const response = await fetch(`${API_URL}/tasks/${selectedTask.id}`, {
+      const response = await fetch(`${API_URL}/tasks/id=${selectedTask.id}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('Failed to delete task');
@@ -84,7 +84,7 @@ const TaskBoard = () => {
       const taskToUpdate = tasks.find(task => task.id === taskId);
       const updatedTask = { ...taskToUpdate, status: newStatus };
       
-      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+      const response = await fetch(`${API_URL}/tasks/id=${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedTask)
