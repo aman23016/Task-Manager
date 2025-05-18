@@ -3,6 +3,8 @@ import StatusColumn from './StatusColumn';
 import TaskModal from './TaskModal';
 import CreateTaskModal from './CreateTaskModal';
 
+const API_URL = 'https://task-manager-backend-one-lilac.vercel.app/tasks';
+
 const TaskBoard = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -15,7 +17,7 @@ const TaskBoard = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/tasks');
+        const response = await fetch('${API_URL}');
         if (!response.ok) throw new Error('Failed to fetch tasks');
         const tasks = await response.json();
         setTasks(tasks);
@@ -29,7 +31,7 @@ const TaskBoard = () => {
   // Create new task with selected status
   const handleCreate = async (newTask) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/tasks', {
+      const response = await fetch('${API_URL}', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...newTask, status: selectedStatus })
@@ -46,7 +48,7 @@ const TaskBoard = () => {
   // Update existing task
   const handleUpdate = async (updatedTask) => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/tasks/${updatedTask.id}`, {
+      const response = await fetch(`${API_URL}/${updatedTask.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedTask)
@@ -64,7 +66,7 @@ const TaskBoard = () => {
   // Delete task
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/tasks/${selectedTask.id}`, {
+      const response = await fetch(`${API_URL}/${selectedTask.id}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('Failed to delete task');
@@ -82,7 +84,7 @@ const TaskBoard = () => {
       const taskToUpdate = tasks.find(task => task.id === taskId);
       const updatedTask = { ...taskToUpdate, status: newStatus };
       
-      const response = await fetch(`http://127.0.0.1:5000/tasks/${taskId}`, {
+      const response = await fetch(`${API_URL}/${taskId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedTask)
